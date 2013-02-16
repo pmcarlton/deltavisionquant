@@ -1,0 +1,30 @@
+#!/bin/sh
+# TODO:
+# - IVE: flip XZ
+# - IVE: project
+# - python: calc. Z offset per-wavelength
+# - python: apply Z offsets -> new file, ~same size as 1st
+# - IVE: find mid-section (or octave?)
+    # note on midsection: can be done by dividing max-intensity projection by the entire stack, then summing and looking for the PEAK intensity. Why not min intensity? Since the dark rim around the mid-section results in a bright rim when it's the denominator, and the sum of that is high. Try with multiple datasets before relying on it...
+# - THEN the current program applies - outputs a new file for each nucleus.
+# - on each new file (octave):
+# - - re-calc perimeter with spacing=1
+# - - calculate EDM for binary image
+# - - sort EDM into unique bins
+# - - get avg. intensity within each bin for each channel.
+
+datafilename=$1;
+polyfilename="$datafilename.pol"
+#Z=$2;
+BORDER=10
+
+Z=`/opt/bin/find-midsection.sh $1 | tail -n 1`;
+echo $Z;
+THR=`echo $Z|cut -d " " -f 2`;
+#THR=$2;
+Z=`echo $Z|cut -d " " -f 1`;
+Threshold $datafilename $datafilename.thr -z1=$Z -w1=0 -not_below=$THR -result=mask;
+2DObjFinder $datafilename.thr -poly=$polyfilename -border=$BORDER -spacing=4 \
+    -minpts=300 -exclude_edge -outer_only
+
+perl /opt/bin/copyObjsFromPerims.pl $datafilename $polyfilename $BORDER;
