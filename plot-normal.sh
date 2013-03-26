@@ -1,6 +1,7 @@
 #!/bin/sh
 gpname=/tmp/gp`date +%s`.plt
 count=0
+echo "set datafile separator \",\"" > $gpname
 for txtname in "$@"
 do
     ttl=`echo $txtname | rev | cut -c 11- | rev`

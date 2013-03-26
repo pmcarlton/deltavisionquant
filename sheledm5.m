@@ -1,6 +1,6 @@
 #!/usr/local/bin/octave -q
 
-OVERLAYCONST=0.7; %controls intensity of green overlay
+OVERLAYCONST=0.3; %controls intensity of green overlay
 SE=fspecial('gaussian',[7 7],3)>0.017;
 a=argv;
 fn=a{1}; %MRC filename
@@ -23,12 +23,13 @@ a=reshape(a,[s(1) s(2) nz nw]);
 ad=squeeze(a(:,:,:,1));
 adz=ad-ad;
 for l=1:nz;
-    adz(:,:,l)=colfilt(ad(:,:,l),[7 7],size(ad(:,:,1)),'sliding',inline("mean(x).*std(x)"));
+    adz(:,:,l)=colfilt(ad(:,:,l),[7 7],size(ad(:,:,1)),'sliding',inline("std(x)"));
+    %adz(:,:,l)=colfilt(ad(:,:,l),[7 7],size(ad(:,:,1)),'sliding',inline("mean(x).*std(x)"));
 end
 for l=1:nz;
     rn(l)=median(adz(:,:,l)(:));
 end
-rp=polyfit(1:length(rn),rn,7);rp=polyval(rp,1:length(rn));origms=find(rp==max(rp));
+rp=polyfit(1:length(rn),rn,5);rp=polyval(rp,1:length(rn));origms=find(rp==max(rp));
 %origms=find(rn==max(rn)); %to avoid polyfitting
 %origms=ms; %ignoring all that and going with MEAN*STD as supplied in argv
 
@@ -75,7 +76,7 @@ for l=1:length(bins)-1;
     f=find(ae>bins(l) & ae<=bins(l+1)); %burned here for a while using && instead of & - & is bitwise, && is logical AND
          if(ms==origms), outimgGreen(f)=OVERLAYCONST*((l/2)==floor(l/2));end %FOR OUTPUT PNG
     for ll=1:nw;
-        tdat{l}{ll}=[tdat{l}{ll};nrm2d(s(:,:,ll))(f)];
+        tdat{l}{ll}=[tdat{l}{ll};nrm2d(s(:,:,ll))(f)]; %why nrm2d? 20130226pmc
         %tdat{l}{ll}=[tdat{l}{ll};s(:,:,ll)(f)];
     end
 end
@@ -102,5 +103,6 @@ desctag=strcat(date,strftime("__%H:%M:%S",localtime(time)));
 setstr=cstrcat('tiffset -s 270 ',desctag,' ',tiffname);
 system(setstr);
 
-fn2=strcat(fn,".NEint.txt");
-save("-text",fn2,"rh");
+fn2=strcat(fn,".NEint.csv");
+csvwrite(fn2,rh);
+%save("-text",fn2,"rh");

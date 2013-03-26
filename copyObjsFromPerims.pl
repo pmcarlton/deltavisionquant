@@ -1,7 +1,7 @@
 $datafile=shift;
 $polyfile=shift;
 $pad=shift; #BORDER
-$pad+=1; #to enable re-cutting
+#$pad+=1; #to enable re-cutting
 open IN,$polyfile;
 foreach (<IN>) {
     @F=split;

@@ -28,7 +28,7 @@ BD=`dirname "${zsname}"`
 
 /opt/bin/get-peripheral-intensity.sh ${zsname}.*sbs
 #/opt/bin/plot-errorbars.sh ${zsname}*NEint.txt
-/opt/bin/plot-normal.sh ${zsname}*NEint.txt
+/opt/bin/plot-normal.sh ${zsname}*NEint.csv
 
 done
 
