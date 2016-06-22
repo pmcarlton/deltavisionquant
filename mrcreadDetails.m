@@ -1,6 +1,6 @@
 function [hdr,data]=mrcreadDetails(fn)
 
-%This is function that enables GNU Octave (which should work in MATLAB too) to read "MRC" file format
+%This is a function that enables GNU Octave (which should work in MATLAB too) to read "MRC" file format
 %(DeltaVision and other related image formats). 
 %Peter Carlton, Kyoto University
 %This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/
