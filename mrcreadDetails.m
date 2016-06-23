@@ -1,4 +1,4 @@
-function [hdr,data]=mrcreadDetails(fn)
+function [hdr,buf]=mrcreadDetails(fn)
 
 %This is a function that enables GNU Octave (which should work in MATLAB too) to read "MRC" file format
 %(DeltaVision and other related image formats). 
@@ -106,7 +106,6 @@ dtype=e(4)+1;
 dt=dtypes{dtype};
 
 disp(strcat(endian,', ',dt));
-data=zeros(e(1),e(2),e(3)); %needed to pre-clear memory--can't believe I didn't do until now, 020120705pmc
 %Seek to beginning of data
 len=prod(e(1:3));
 start=double(es(24))+1024;
@@ -126,5 +125,5 @@ buf = buf(1:2:end) + (j.* (buf(2:2:end)));
 end
 
 %Rearrange into the right shape
-data=reshape(buf,[e(1) e(2) e(3)]);
+buf=reshape(buf,[e(1) e(2) e(3)]);
 %printf("Size = [ %i %i %i ]" ,e(2),e(1),e(3));
