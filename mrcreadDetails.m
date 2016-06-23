@@ -5,12 +5,6 @@ function [hdr,data]=mrcreadDetails(fn)
 %Peter Carlton, Kyoto University
 %This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/
 
-%attempts to read everything relevant and handle everything
-
-%apparently does endian okay
-%xxTODO: COMPLEX numbers: it's two successive datas in MRC file, with flag set
-%(will have to handle writing them as well. (done))
-
 %20160604 -- mrcreadDetails.m
 % provide two return values: 'hdr' containing all the header info, and 'dat' containing the raw pixels
 
@@ -132,7 +126,5 @@ buf = buf(1:2:end) + (j.* (buf(2:2:end)));
 end
 
 %Rearrange into the right shape
-buf=reshape(buf,[e(1) e(2) e(3)]);
-%printf("Size = [ %i %i %i ]
-" ,e(2),e(1),e(3));
-for l=1:e(3);data(:,:,l)=(buf(:,:,l));end
+data=reshape(buf,[e(1) e(2) e(3)]);
+%printf("Size = [ %i %i %i ]" ,e(2),e(1),e(3));
