@@ -5,7 +5,10 @@
 #using IVE utilities Flip, Resample2D, Flip, Reverse
 #20130129pmc
 
-#contents of file /usr/local/softWoRx/zshifts-20130129.txt (wavelength | empirically measured offset in μm):
+# This program requires a full installation of the Priism image analysis platform (msg.ucsf.edu/IVE)
+# Priism binaries "Flip", "Resample3D", and "mergemrc" must be in the $PATH
+
+#contents of file /usr/local/softWoRx/zshifts-20130129.txt (two text columns: wavelength | empirically measured offset in μm):
 #
 # 455 0
 # 525 -2.37
