@@ -5,6 +5,13 @@
 #using IVE utilities Flip, Resample2D, Flip, Reverse
 #20130129pmc
 
+#contents of file /usr/local/softWoRx/zshifts-20130129.txt (wavelength | empirically measured offset in μm):
+#
+# 455 0
+# 525 -2.37
+# 605 -3.53
+# 705 -4.0
+#
 @dtypes=('Byte(uchar)','Short(int16)','Float(float32)','Short(int16)','Float/(float32)','Short/(int16)','UShort/(uint16)','Long/(int32)');
 
 $finname=shift;
