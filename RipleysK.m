@@ -1,7 +1,7 @@
 function K = RipleysK(locs,dist,box,method);
 % RipleysK: Calculate K statistic
 % 
-% Adapted to 3D by Pete Carlton 020110505 (for Sakigake)
+% Adapted to 3D by Pete Carlton 020110505
 %
 % K = RipleysK(locs,dist, box,method) calculates G, the K statistic at each 
 % distance for the data with x-y coordinates given by locs, and the
