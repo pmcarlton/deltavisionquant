@@ -1,0 +1,8 @@
+#!/bin/sh
+for FNAME in $@; do
+    FN=`basename $FNAME`
+    /opt/bin/chromatic-shift $FN > /tmp/chromatic-$FN.q
+    qsub -cwd /tmp/chromatic-$FN.q
+done
+
+
