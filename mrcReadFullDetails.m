@@ -1,4 +1,4 @@
-function [hdr,raw_hdr,buf,prec,arch]=mrcReadFullDetails(fn)
+function [hdr,raw_hdr,buf,prec,arch,exthdr]=mrcReadFullDetails(fn)
 
 %fn is the filename/pathname of the Deltavision file you want to read.
 %program attempts to read everything relevant
@@ -13,6 +13,8 @@ function [hdr,raw_hdr,buf,prec,arch]=mrcReadFullDetails(fn)
 % struct with everything in it
 %20180405 -- mrcReadFullDetails.m
 % include raw header to be able to write/modify easily
+% 20181010 -- no name change
+% read the extended header too!
 
 dtypes={'uchar','int16','float32','int16','float32','int16','uint16','int32'};
 endi={'ieee-be','ieee-le'};
@@ -99,6 +101,7 @@ hdr.title=char(rr);
 
 %read raw header bytes into another variable
 fseek(a,0);raw_hdr=fread(a,1024,'char',endian);
+exthdr=fread(a,hdr.next); %char assumed, so endian not relevant I think 20181010pmc
 
 %Check Datatype
 fseek(a,0);es=fread(a,64,'int32',endian);
